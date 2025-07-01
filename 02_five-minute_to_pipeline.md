@@ -6,8 +6,10 @@
 “Shipping beats perfection. Especially in pipelines.” - Modern Data Stack Wisdom
 </p>
 
+
  
 Point-and-click ETL platforms like Fivetran or Stitch promise quick wins – connect a source and you’re done – but under the hood there’s a catch. Convenience often comes with trade-offs: mounting costs, rigid pre-defined schemas, and loss of control over your data flow. What starts as a shortcut can turn into a shackle on your team’s agility.
+
 
 ## Zero-to-Pipeline: Launch in 5 Minutes
 
