@@ -4,7 +4,7 @@
 “The greatest danger in times of turbulence is not the turbulence—it is to act with yesterday’s logic.” — Peter Drucker
 
 
-## Clarifing *why* You're miigrating
+## Clarifing *why* You're migrating
 
 
 On the surface, your data pipelines might appear to be running smoothly. The dashboards update mostly on time, and stakeholders see the charts they expect each morning. 
