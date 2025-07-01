@@ -3,7 +3,7 @@
 
 
 <p align="center">
-*“Shipping beats perfection. Especially in pipelines.”* - Modern Data Stack Wisdom
+“Shipping beats perfection. Especially in pipelines.” - Modern Data Stack Wisdom
 </p>
 
  
