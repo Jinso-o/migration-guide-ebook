@@ -1,7 +1,9 @@
 # Chapter 1: Why migrate? - Uncovering the hidden cost of iceberg
 
 
+<p align="center">
 “The greatest danger in times of turbulence is not the turbulence—it is to act with yesterday’s logic.” — Peter Drucker
+</p>
 
 
 ## Clarifing *why* You're migrating
