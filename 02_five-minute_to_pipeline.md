@@ -7,19 +7,15 @@
 
 # Step 2: Five-Minute First Pipeline
 
-Imagine you're breaking free from Fivetran or Stitch. Those point-and-click SaaS platforms promise fast results, but under the surface, they often hide a trade-off: 
-mounting costs, rigid schemas, and limited control. For many teams, what starts as a convenience becomes a constraint.
+Point-and-click ETL platforms like Fivetran or Stitch promise quick wins – connect a source and you’re done – but under the hood there’s a catch. Convenience often comes with trade-offs: mounting costs, rigid pre-defined schemas, and loss of control over your data flow. What starts as a shortcut can turn into a shackle on your team’s agility.
 
 Now picture something different.  A tool that speaks your language — whether that's Python or even plain English with AI help — that runs anywhere, and that you 
-can understand, debug, and evolve. With *dlt*, that’s exactly what you get: a code-first, open-source pipeline framework that empowers you to go from idea to working 
-pipeline in minutes—without the vendor lock-in or sky-high SaaS bills. And yes, vibe coding your very first pipeline is not only recommended — it's strongly advised.
+can understand, debug, and evolve. With *dlt*, that’s exactly what you get: a code-first, open-source pipeline framework that empowers you to go from idea to working pipeline in minutes—without the vendor lock-in or sky-high SaaS bills. And yes, vibe coding your very first pipeline is not only recommended — it's strongly advised.
 
-We’re not talking theory. Companies that replaced managed ETL tools with dlt have reported 20x to 200x lower costs, while gaining better transparency, observability, 
-and control[^fn1]. In one real case, a team slashed their data ingestion cost by 10,000x just by switching to a lightweight dlt script.
+We’re not talking theory. Companies that replaced managed ETL tools with dlt have reported 20x to 200x lower costs, while gaining better transparency, observability, and control [[1]](#1). In one real case, a team slashed their data ingestion cost by 10,000x just by switching to a lightweight dlt script.
 
 And the kicker? With modern tooling—and a little help from AI—getting started with dlt can be almost as fast as clicking a "connect" button. 
-Except this time, you own the pipeline — and by extension, you own the data. You control where it comes from, how it's handled, where it's stored, and how it evolves.
-No more guessing what a third-party tool is doing behind the scenes.
+Except this time, you own the pipeline — and by extension, you own the data. You control where it comes from, how it's handled, where it's stored, and how it evolves. No more guessing what a third-party tool is doing behind the scenes.
 
 > *Note: If you just read Chapter 1, some of this may sound familiar. That’s by design. Not everyone will read this book linearly, 
 > and for some readers, Chapter 2 is their entry point. A brief reminder of why dlt exists sets the stage for the hands-on work ahead.*
@@ -29,7 +25,7 @@ something real, there's a fast path for you. By the end, you'll have real code, 
 
 **You *could* build a pipeline in just a few minutes.** In fact, dlt is designed so that you can go from a REST API to a database in around **5 minutes** of work. dlt automates away much of the tedious boilerplate (handling auth, pagination, schema inference, etc.), letting you focus on what data you want rather than how to fetch and load it. *But realistically, your use case might be more complex* than a toy example, so dlt provides multiple paths to get started. Below we outline several options – from the simplest plug-and-play pipeline to more customized builds – along with the estimated time each approach might take. Choose the path that fits your needs and skill level:
 
-* **Option 1: Use an Existing Verified Pipeline (≈3 minutes).** The fastest route is to leverage dlt’s library of pre-built *verified sources* (connectors). These are ready-made pipeline scripts for popular data sources, developed and tested by the community. You can initialize one with a single command. For example, running `dlt init pipedrive bigquery` will scaffold a complete pipeline project to extract data from the Pipedrive API and load it into BigQuery. The template code (downloaded to your project) includes everything needed – you typically just add your credentials to the config and run the pipeline. Using verified source pipelines gives you **instant gratification** similar to Fivetran's one-click connectors, but you also get the Python source code for full transparency and customization. *Resources:* The dlt docs provide a catalog of verified sources and how to use the `dlt init` command.
+* **Option 1: Use an Existing Verified Pipeline (≈3 minutes).** The fastest route is to leverage dlt’s library of pre-built *verified sources* (connectors). These are ready-made pipeline scripts for popular data sources, developed and tested by the community. You can initialize one with a single command. For example, running `dlt init pipedrive bigquery` will scaffold a complete pipeline project to extract data from the Pipedrive API and load it into BigQuery. The template code (downloaded to your project) includes everything needed – you typically just add your credentials to the config and run the pipeline. Using verified source pipelines gives you **instant gratification** similar to Fivetran's one-click connectors, but you also get the Python source code for full transparency and customization. *Resources:* The dlt docs provide a catalog of verified sources and how to use the `dlt init` command [[2]](#2).
 
 * **Option 2: Build a Minimalistic Loading Pipeline (≈3 minutes).** If you have a simple one-off data source (like a local file, DataFrame, or JSON output) and just want to load it quickly into a destination, dlt makes that trivial as well. In just a few lines of Python, you can create a pipeline and call `pipeline.run(data_object)` to load it. For example, to load a Pandas DataFrame to a Snowflake table, you can do:
 
@@ -55,7 +51,9 @@ something real, there's a fast path for you. By the end, you'll have real code, 
 **Sources:**
 
 
-[^fn1] Fivetran vs dlt, https://dlthub.com/blog/fivetran-vs-dlt
+## References
+<a id="1">[1]</a>  Fivetran vs dlt, https://dlthub.com/blog/fivetran-vs-dlt
+<a id="2">[2]</a> https://dlthub.com/docs/walkthroughs/add-a-verified-source#:~:text=Now%20pick%20one%20of%20the,bigquery
 1. Adrian Brudaru. *"Fivetran vs dlt: Quickstart vs Endgame"* – **dltHub Blog** (May 28, 2025). Discusses philosophy of code-first pipelines vs managed services, highlighting dlt's approach to automation and flexibility with coding (mentions AI tools like Cursor/Copilot).
 2. Adrian Brudaru. *"Instant pipelines with dlt-init-openapi"* – **dltHub Blog** (May 28, 2024). Announcement of the OpenAPI-based pipeline generator; explains how pointing to an API spec can generate a pipeline in one command.
 3. **dlt Documentation – Verified Sources**. Official docs on using `dlt init` to bootstrap pipelines from community-maintained source connectors. Shows example (`dlt init pipedrive bigquery`) and explains that verified sources come with tested code for easy customization.
