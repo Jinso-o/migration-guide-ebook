@@ -4,7 +4,7 @@
 “The greatest danger in times of turbulence is not the turbulence—it is to act with yesterday’s logic.” — Peter Drucker
 
 
-## 1.1 Clarifing *why* You're miigrating
+## Clarifing *why* You're miigrating
 
 
 On the surface, your data pipelines might appear to be running smoothly. The dashboards update mostly on time, and stakeholders see the charts they expect each morning. 
@@ -19,7 +19,7 @@ By the end of this chapter, you should have a clear sense of why a migration to 
 
 
 
-## 1.2 Uncovering the hidden cost of iceberg - SaaS ETL vs. Home-Grown Pipelines
+## Uncovering the hidden cost of iceberg - SaaS ETL vs. Home-Grown Pipelines
 
 Many teams either rely on a third-party **SaaS ETL** platform or maintain a **home-grown Python pipeline**. Both approaches have their own “icebergs” of hidden pain driving the urge to migrate to a better solution like **dlt**. Here’s a side-by-side look at the top three pain points in each scenario:
 
