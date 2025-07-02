@@ -37,13 +37,6 @@ Many teams either rely on a third-party **SaaS ETL** platform or maintain a **ho
 
 ## Rising above to embrace migration - Positive motivators
 
-Perfect. I’ll revise the second half of Chapter 1 starting from the 'Positive Motivators' section, keeping the original narrative tone, while improving alignment with the 3+3 pain points. I’ll also refine the 'What is dlt' section to better fit this updated framing.
-
-I’ll share the polished draft shortly.
-
-
-## Positive Motivators
-
 Having identified the pitfalls of both SaaS ETL tools and homegrown pipelines, it’s time to focus on the upside of moving to a better approach. Below are the key **motivators** driving this migration – each one directly addressing a pain point we’ve discussed:
 
 1. **Lower Cost & No Vendor Lock-In:** By adopting an open solution, you escape escalating subscription fees and proprietary traps. Many fully managed ETL services charge **tens of thousands of dollars per year**, and those costs only climb as data volumes grow. A code-centric, open-source tool has **no license fees** and lets you own your pipelines end-to-end, ensuring you’re never beholden to a vendor’s pricing or roadmap.
