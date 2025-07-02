@@ -70,7 +70,7 @@ In a nutshell, dlt is more than just a tool. It's a solution that's cost-effecti
 
 ## Self-Evaluation: Pipeline Migration Readiness Scorecard
 
-At this point, you’ve heard the cautionary tales and the enticing benefits. But how do you know if **you** should migrate now? Every organization is at a different stage. To help you evaluate your pipeline’s readiness (and your team’s appetite) for a migration to dlt, use this simple scorecard. It’s a set of Yes/No (or 1–5 scale) questions to honestly ask yourself and your team:
+At this point, you’ve heard the cautionary tales and the enticing benefits. But how do you know if **you** should migrate now? Every organization is at a different stage. To help you evaluate your pipeline’s readiness (and your team’s appetite) for a migration to dlt, use this simple scorecard. It’s a set of Yes/No/Unnessasry questions to honestly ask yourself and your team:
 
 1. **Maintenance Burden:** Is your team spending a lot of time on routine pipeline maintenance?
 
