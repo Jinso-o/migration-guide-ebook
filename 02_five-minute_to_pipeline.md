@@ -1,10 +1,8 @@
-# Chapter 2: Five-Minute First Pipeline
-
-
-
 <p align="center">
 “Shipping beats perfection. Especially in pipelines.” - Modern Data Stack Wisdom
 </p>
+
+# Chapter 2: Five-Minute First Pipeline
 
 
  
