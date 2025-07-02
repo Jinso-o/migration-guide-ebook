@@ -1,7 +1,7 @@
-Great. I’ll gather a representative example of a common Python pipeline (e.g., using Pandas or requests with the Jaffle Shop dataset or a REST API endpoint), and show how to convert it into a dlt pipeline—focusing on loader replacement, resource wrapping, and incremental configuration. I’ll also find or generate clear visuals and code that align with the voice and structure you’ve used so far.
 
-I’ll be back soon with a complete draft and visuals you can use or refine for the chapter.
-
+<p align="center">
+“Refactoring code is like moving furniture in the dark—you’ll stub your toe once or twice, but it feels great when everything’s finally in place.”— Anonymous Data Engineer Playbook
+</p>
 
 # Chapter 3: Converting an Existing Python Pipeline
 
@@ -9,17 +9,21 @@ In this chapter, we'll take a common scenario – you already have a Python data
 
 ## Anatomy of a dlt Pipeline
 
+<p align="center">
+    <img src="pipeline_example.png" alt="High-level diagram of dlt pipeline"/>
+<p>
+    
+> &#x20;*Diagram: A dlt pipeline ingests diverse inputs (JSON, DataFrames, Python generators) via resources, then automatically extracts, normalizes, and infers schemas before loading the results into your chosen destination (e.g. a database or warehouse).*
+
 Before converting a pipeline, it's important to understand the key components of dlt: **sources**, **resources**, the **pipeline** itself, and the **destination**. These pieces work together to handle data extraction and loading in a streamlined way.
 
-&#x20;*Diagram: A high-level overview of a dlt pipeline. On the left, various data inputs (JSON records, DataFrames, Python generators, etc., often provided via dlt resources within a source) feed into the dlt pipeline. The pipeline (center) automatically normalizes nested data structures and infers schema, then loads the processed data into the destination on the right (e.g., a database or data warehouse).*
+* **Source:** A source is like a container for data. It groups together different parts of a data system (like an API or a database) that we call resources. These resources are the actual parts that produce data. By grouping these resources into a source, we can manage them more easily. For example, we can set up things like login details or web addresses just once for the whole source, instead of doing it for each resource. So, a source in dlt is a way to organize and manage our data extraction more efficiently [1](https://dlthub.com/docs/general-usage/source). 
 
-* **Source:** A source in dlt is a logical grouping of one or more data-producing resources (for example, all endpoints of a single API can be grouped into one source). Grouping resources in a source lets you define common configuration (like API credentials or base URLs) only once. In other words, a dlt source represents a data source system (an API, a database, etc.) and contains the resources needed to extract from that system.
+* **Resource:** A resource is a part of a source that actually gets or produces the data. Think of it as a worker that goes out and collects the data we need. We can give this worker specific instructions, like where to go (a specific table in a database, for example), what data to bring back, and how to update the data if it changes. These instructions are set up using options in the dlt library. So, a resource in dlt is a tool we use to fetch or produce the data we want [2](https://dlthub.com/docs/general-usage/resource).
 
-* **Resource:** A resource is an individual data extractor – typically a Python function (which can be synchronous or async) that yields data records. You define a resource by decorating a function with `@dlt.resource`. Instead of returning data, a resource function uses Python's `yield` to generate data items (e.g., dictionaries, lists of dicts, or pandas DataFrames). Resources can be configured with options like a custom name (which maps to the destination table name), a primary key, and a write disposition (how to load data, e.g. append vs. merge) to control incremental behavior. The resource is the core unit that actually fetches or produces data.
+* **Pipeline:** A pipeline is like an orchestrator that manages the entire process of moving data from its source to its destination. When you set up a pipeline, you specify where you want the data to end up. Once you start the pipeline, it begins the process of extracting the data from the source, arranging it in a way that the destination can understand, and then loading it into the destination. The pipeline is intelligent - it can figure out the structure of the data on its own and adapt if the data changes. So, with a pipeline acting as an orchestrator, you can seamlessly move data from one place to another in a single step. [3](https://dlthub.com/docs/build-a-pipeline-tutorial#:~:text=First%2C%20we%20have%20a%20,objects%20such%20as%20generator%20functions).
 
-* **Pipeline:** A dlt pipeline is the orchestrator that *runs* your resources/sources and handles getting data to the destination. When you create a pipeline (using `dlt.pipeline()`), you specify a destination and dataset name. Calling `pipeline.run(...)` on your data (which can be raw Python iterables, a resource, or an entire source) triggers dlt to **extract** the data, **normalize** it (infer schema, handle nested JSON by creating subtables, etc.), and **load** it to the destination automatically. The pipeline takes care of schema discovery and evolution, so you can "just load" the data without writing separate schema or load scripts. Essentially, the pipeline coordinates the end-to-end EL (Extract and Load) process in one call.
-
-* **Destination:** The destination is where your data lands after the pipeline runs – for example, a data warehouse like BigQuery, a relational database, or even a local file-based database. dlt supports many destinations (BigQuery, DuckDB, Snowflake, Redshift, Delta Lake on cloud storage, etc.). You specify the destination when initializing the pipeline, and dlt will handle creating the dataset (schema) and tables if needed, and loading the data into that destination.
+* **Destination:** A destination is the final stop for your data after the pipeline has done its job. This could be a variety of places like a data warehouse, a database, or even a file on your computer. The dlt library can work with many different types of destinations, including BigQuery, DuckDB, Snowflake, Redshift, and Delta Lake on cloud storage. When you set up a pipeline, you tell it where the destination is. The pipeline, acting as an orchestrator, will then take care of all the necessary steps to get the data into that destination, including creating the necessary structures (like schemas and tables) if they don't already exist [4](https://dlthub.com/docs/dlt-ecosystem/destinations).
 
 With these concepts in mind, let's see how they come together when converting a typical Python pipeline to use dlt.
 
