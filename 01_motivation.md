@@ -7,8 +7,6 @@
 
 # Chapter 1: Why migrate? - Uncovering the hidden cost of iceberg
 
-## Clarifing *why* You're migrating
-
 
 On the surface, your data pipelines might appear to be running smoothly. The dashboards update mostly on time, and stakeholders see the charts they expect each morning. 
 But behind that polished facade, perhaps your team pulled a late-night scramble to fix a broken data feed, or you’re nursing along a fragile script that could fail with the next API update. 
