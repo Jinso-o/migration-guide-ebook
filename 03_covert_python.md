@@ -3,9 +3,13 @@
 “Refactoring code is like moving furniture in the dark—you’ll stub your toe once or twice, but it feels great when everything’s finally in place.”— Anonymous Data Engineer Playbook
 </p>
 
+---
+
 # Chapter 3: Converting an Existing Python Pipeline
 
 In this chapter, we'll take a common scenario – you already have a Python data pipeline – and walk through how to migrate it to **dlt**. We will cover the anatomy of a dlt pipeline, and then provide a step-by-step conversion of a simple pipeline (originally using pandas) into a dlt-powered pipeline with incremental loading.
+
+---
 
 ## Anatomy of a dlt Pipeline
 
@@ -27,11 +31,9 @@ Before converting a pipeline, it's important to understand the key components of
 
 With these concepts in mind, let's see how they come together when converting a typical Python pipeline to use dlt.
 
-## Example: Migrating a Python Pipeline to dlt
+## From pandas to dlt: A 3‑Step Refactor
 
 To make this concrete, consider you have a simple example pipeline. Say we have a script that retrieves data from an HTTP API and loads it into a database using pandas. We'll use a fictitious "sales" API for this illustration. First, we'll show the original pipeline using standard Python/pandas code, and then we'll demonstrate how to convert it to a dlt pipeline step by step.
-
-## From pandas to dlt: A 3‑Step Refactor
 
 #### Original Pipeline (using pandas)
 
@@ -140,7 +142,7 @@ With this setup, running the pipeline will trigger our resource to execute the A
 
 **Why use a source?** If we had multiple related resources (say `fetch_sales_data` and `fetch_customers_data`), we could group them under a single `@dlt.source` (e.g., `@dlt.source def sales_api(): yield fetch_sales_data() and yield fetch_customers_data()`). A source function returns one or more resources (using `yield` to yield each resource). This grouping is useful to share configuration like API tokens or base URLs among resources. In our simple case with one resource, we didn't strictly need a separate source; we can run the resource directly. But it's good to know that sources are available for organizing multiple resources logically.
 
-At this point, our dlt pipeline does the same job as the original script, but with less manual effort in schema management and loading. Next, let's address incremental loading [6](https://dlthub.com/docs/tutorial/load-data-from-an-api).
+At this point, our dlt pipeline does the same job as the original script, but with less manual effort in schema management and loading [6](https://dlthub.com/docs/tutorial/load-data-from-an-api).
 
 #### 3) Configuring Incremental Extract and Load 
 
@@ -195,15 +197,7 @@ print(info)
 
 On the first run, it will load all sales (up to the limit, or all available data if no limit). On subsequent runs, it will fetch only new sales added since the last run, appending or merging them into the same table. The result is an up-to-date **`sales`** table that grows with new data, without duplicates and without re-fetching the entire dataset each time.
 
-### Benefits of the dlt Pipeline Approach
-
-By converting our pipeline to dlt, we gained several benefits:
-
-* **Less boilerplate:** We no longer manually handle database connections or write DataFrame to SQL. dlt took care of connecting to the destination and loading data in optimal batches, with schema inference and creation done automatically.
-* **Incremental logic built-in:** With a few lines, we added robust incremental loading. dlt's pipeline state and merge functionality save us from writing our own checkpointing or upsert SQL.
-* **Scalability:** The resource function yields records, which means dlt can handle large datasets by streaming/chunking data. We could easily extend the resource to fetch data page by page (yielding one page at a time) and dlt would accumulate those. This is more memory-efficient than loading everything into a single DataFrame in memory. dlt is designed to handle iterators and even parallel extraction for scalability.
-* **Maintainability:** Configuration like API URLs, parameters, and credentials can be cleanly managed (e.g., using `dlt.secrets` for sensitive info, and grouping resources in sources). The pipeline code is declarative about what to extract and how to load, rather than mixing extraction with loading details.
-* **Destination flexibility:** Today we used DuckDB, but tomorrow we could switch `destination="bigquery"` or another destination with minimal changes. dlt pipelines abstract away the specifics of the target data store.
+---
 
 ## Takeaways: Delivering Managerial Impact
 
@@ -219,9 +213,9 @@ Migrating your Python script to a dlt pipeline isn’t just a technical refactor
 
 ---
 
-## Definition of Done
+## Definition of Done : complete the migration
 
-Your migration is complete when all of the following are true:
+All of the following should be considered:
 
 1. **Pipeline Runs Without Errors:** The converted dlt pipeline executes successfully end-to-end in your environment.
 2. **Incremental Loading Verified:** Only new or changed records are ingested on subsequent runs, confirmed by state inspection and row‑count comparisons.
