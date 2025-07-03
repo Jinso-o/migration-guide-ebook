@@ -90,7 +90,7 @@ Go through these questions and score yourself. If you find you answered “Yes�
 
 There will be no exact cutoff, but as a rule of thumb: **if more than 2–3 of these points are major issues for you, it’s time to seriously consider a migration**. Even one critical “yes” (like a very high maintenance burden or an inability to scale for a known upcoming need) can be reason enough. This scorecard is about being honest with where your pipeline stands. SO you know to head now to solve your challenges!
 
-## Document *Your* Motivation (Exercise)
+## Definition of done : document *your* motivation (Exercise)
 
 Before we move on, let’s turn reflection into action. One hallmark of a successful migration project is having a clear vision of *why* you’re doing it. It’s easy to get lost in the weeds of technical steps, but your motivation is the north star guiding the effort.
 
