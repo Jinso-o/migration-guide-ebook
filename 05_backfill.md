@@ -4,8 +4,8 @@
 
 When creating a new pipeline for a source that has been running for a while or when migrating an existing pipeline to `dlt`, a crucial step is to **bring over years of historical data** into your new setup. We recommend two primary strategies for this:
 
-* **Backfilling** – re-import *all* historical data into your new destination.
 * **Stitching** – keep historical data in place and present it alongside new data via a virtual union (e.g. a SQL view).
+* **Backfilling** – re-import *all* historical data into your new destination.
 
 ## Option 1: 🪡 Stitching Old and New Data
 
@@ -106,3 +106,18 @@ These strategies aren’t mutually exclusive – you can use stitching as a quic
 3. Once the backfill catches up and all legacy data now lives in `dlt`, **switch the view** (or your application queries) to reference only the new `dlt` table. You can then retire the old system.
 
 This phased approach minimizes downtime and complexity: users and reports can continue querying a unified view throughout the migration, and you ensure nothing is missed before fully switching to `dlt`.
+
+
+### DoD
+
+* **Generate 1 M mock retail orders (2015-2023)** in a “legacy” SQLite file (simulates an on-prem OLTP DB).  
+* **Attach DuckDB** as the new warehouse—perfect for Colab, no cloud creds required. :contentReference[oaicite:2]{index=2}  
+* **Query everything instantly** via a stitched view—no data moved yet.  
+* **Backfill history three ways**  
+  * *Full-table load* – shows the “quick-and-dirty” path.  
+  * *Chunked load* – safer batches of 10 k rows (best practice for large tables). :contentReference[oaicite:3]{index=3}  
+  * *Time-sliced, parallel load* – slices by month and runs up to six threads; mirrors how real pipelines parallelise long backfills. :contentReference[oaicite:4]{index=4}  
+* **Run an incremental update** (2024-2025 orders) to prove dlt merges, not duplicates.  
+* **Flip the stitched view** to point only at DuckDB—legacy can now be archived.
+
+> **Outcome:** you’ll leave with a hands-on feel for how stitching gives zero-downtime visibility, while dlt’s stateful, cursor-aware backfill lets you migrate years of data safely and repeatably.
