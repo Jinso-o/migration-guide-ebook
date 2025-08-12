@@ -117,11 +117,8 @@ This phased approach minimizes downtime and complexity: users and reports can co
 
  * Stitching works before backfill → dw.all_orders shows one row: ('legacy', N). (Uses a union view — easy to grasp in a README.) 
 GitHub Docs
-
  * Monthly backfill loads → dw.all_orders shows two sources: legacy + dlt.
-
  * Re-run a month = no duplicates (MERGE on id).
-
  * Cutover complete → dw.all_orders shows only ('dlt', N)
 
 > **Outcome:** you’ll leave with a hands-on feel for how stitching gives zero-downtime visibility, while dlt’s stateful, cursor-aware backfill lets you migrate years of data safely and repeatably.
