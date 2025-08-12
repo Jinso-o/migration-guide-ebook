@@ -37,7 +37,7 @@ FROM dlt_schema.events;
 
 If you prefer to have **all data in the new pipeline and destination** meaning eventually retiring the old storage, then you’ll want to perform a **backfill** – i.e. load the historical records into `dlt`. There are a few approaches to backfilling, depending on your data volume and source capabilities:
 
-### A. Full Table Load
+### A. Full table load
 
 This simplest method is to do a one-time **full export** of the entire source table into `dlt`. Use this when the table is reasonably small or the source->destination connection is very fast (e.g. copying from Postgres to BigQuery in one go). This approach runs one complete scan of the table:
 
