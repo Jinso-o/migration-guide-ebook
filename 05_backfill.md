@@ -32,7 +32,7 @@ FROM dlt_schema.events;
 
 ## Option 2: 🕳️ Backfilling Historical Data into `dlt`
 
-If you prefer to have **all data in the new pipeline and destination** (eventually retiring the old storage), then you’ll want to perform a **backfill** – i.e. load the historical records into `dlt`. There are a few approaches to backfilling, depending on your data volume and source capabilities:
+If you prefer to have **all data in the new pipeline and destination** meaning eventually retiring the old storage, then you’ll want to perform a **backfill** – i.e. load the historical records into `dlt`. There are a few approaches to backfilling, depending on your data volume and source capabilities:
 
 ### A. Full Table Load
 
@@ -108,16 +108,17 @@ These strategies aren’t mutually exclusive – you can use stitching as a quic
 This phased approach minimizes downtime and complexity: users and reports can continue querying a unified view throughout the migration, and you ensure nothing is missed before fully switching to `dlt`.
 
 
-### DoD
+### Definition of Done (tick as you go)
 
-* **Generate 1 M mock retail orders (2015-2023)** in a “legacy” SQLite file (simulates an on-prem OLTP DB).  
-* **Attach DuckDB** as the new warehouse—perfect for Colab, no cloud creds required. :contentReference[oaicite:2]{index=2}  
-* **Query everything instantly** via a stitched view—no data moved yet.  
-* **Backfill history three ways**  
-  * *Full-table load* – shows the “quick-and-dirty” path.  
-  * *Chunked load* – safer batches of 10 k rows (best practice for large tables). :contentReference[oaicite:3]{index=3}  
-  * *Time-sliced, parallel load* – slices by month and runs up to six threads; mirrors how real pipelines parallelise long backfills. :contentReference[oaicite:4]{index=4}  
-* **Run an incremental update** (2024-2025 orders) to prove dlt merges, not duplicates.  
-* **Flip the stitched view** to point only at DuckDB—legacy can now be archived.
+[Example code](https://colab.research.google.com/drive/1ChFgNy6r_EUmobJslK3q5w3iCBsyEqfP?usp=sharing)
+
+ * Stitching works before backfill → dw.all_orders shows one row: ('legacy', N). (Uses a union view — easy to grasp in a README.) 
+GitHub Docs
+
+ * Monthly backfill loads → dw.all_orders shows two sources: legacy + dlt.
+
+ * Re-run a month = no duplicates (MERGE on id).
+
+ * Cutover complete → dw.all_orders shows only ('dlt', N)
 
 > **Outcome:** you’ll leave with a hands-on feel for how stitching gives zero-downtime visibility, while dlt’s stateful, cursor-aware backfill lets you migrate years of data safely and repeatably.
