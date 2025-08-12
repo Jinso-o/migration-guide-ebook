@@ -1,5 +1,5 @@
 <p align="center">
-“Replace the ship, keep the voyage.” - The Story of the Ship Of Theseus
+“Replace the ship, keep the voyage.” - The story of the ship of Theseus
 </p>
 
 # Loading historical data when migrating to `dlt`
