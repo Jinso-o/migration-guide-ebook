@@ -10,7 +10,7 @@ When creating a new pipeline for a source that has been running for a while or w
 * **Stitching** – keep historical data in place and present it alongside new data via a virtual union (e.g. a SQL view).
 * **Backfilling** – re-import *all* historical data into your new destination.
 
-## Option 1: 🪡 Stitching Old and New Data
+## Option 1: 🪡 Stitching old and new data
 
 If your legacy data is still accessible in its original database or warehouse, and you prefer not to reload it immediately, you can **stitch it together** with new `dlt`-loaded data using a read-time combination (for example, a **view** that unions the datasets). This essentially creates a *logical combination of multiple tables exposed as a single dataset*.
 
@@ -33,7 +33,7 @@ FROM dlt_schema.events;
 * *Legacy data is read-only*: Suitable if historical data won’t be updated further.
 * *Phased migration*: Allows verifying the new pipeline in parallel and switching fully to `dlt` at your own pace.
 
-## Option 2: 🕳️ Backfilling Historical Data into `dlt`
+## Option 2: 🕳️ Backfilling historical data into `dlt`
 
 If you prefer to have **all data in the new pipeline and destination** meaning eventually retiring the old storage, then you’ll want to perform a **backfill** – i.e. load the historical records into `dlt`. There are a few approaches to backfilling, depending on your data volume and source capabilities:
 
@@ -71,7 +71,7 @@ Each run with `chunk_size` will fetch the next batch of rows (e.g. 10,000 at a t
 
 > *Tip:* You can monitor progress by checking how many rows have loaded after each chunk, and stop once it matches the legacy table’s row count. Some pipelines use a loop with a condition or the `dlt` **dataset accessor** to verify when to stop.
 
-### C. Time-Sliced Backfilling (Parallel-Friendly)
+### C. Time-sliced backfilling (Parallel-Friendly)
 
 If your source data has a **time-based or incrementing ID column**, you can leverage it to backfill in defined slices (e.g. by date range or ID range). In this approach, you parameterize your extraction by a start/end and run many small extractions that cover different portions of history. For example, using `dlt`’s incremental helpers:
 
@@ -100,7 +100,7 @@ In practice, if one day’s data takes \~1 hour to load, doing 1500 days seriall
 * ✅ Highly parallelizable – slices can be processed concurrently, greatly reducing overall time.
 * ❌ Requires orchestration tooling – you need a way to kick off and coordinate parallel slice jobs (this could be a custom script or a workflow platform, as mentioned).
 
-### Pro Tip: Combine Stitching *and* Backfill
+### Pro yip: combine stitching *and* backfill
 
 These strategies aren’t mutually exclusive – you can use stitching as a quick stop-gap while a backfill runs in the background:
 
