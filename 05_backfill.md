@@ -1,4 +1,6 @@
-
+<p align="center">
+“Replace the ship, keep the voyage.” - The Story of the Ship Of Theseus
+</p>
 
 # Loading historical data when migrating to `dlt`
 
@@ -48,8 +50,8 @@ pipeline.run(resource)
 
 This will load all rows from the legacy `events` table into the pipeline in one run.
 
-✅ Simple – the pipeline logic is straightforward (just one big load).
-❌ Doesn’t scale well for very large datasets – a massive one-shot transfer could time out or exhaust memory.
+* ✅ Simple – the pipeline logic is straightforward (just one big load).
+* ❌ Doesn’t scale well for very large datasets – a massive one-shot transfer could time out or exhaust memory.
 
 ### B. Chunked Loading (Batching the Backfill)
 
@@ -62,9 +64,9 @@ pipeline.run(resource)
 
 Each run with `chunk_size` will fetch the next batch of rows (e.g. 10,000 at a time) from the source. You would repeat or automate these pipeline runs to cover the whole dataset – for example via a loop, a script, or an orchestrator (Airflow, etc.) until all chunks are loaded. This **chunked backfill** avoids doing one enormous transfer, reducing the risk of failures and memory issues.
 
-✅ Avoids memory/time issues that a single huge load might cause.
-✅ Backend-agnostic – works even if the source has no natural time or ID field for incremental loading.
-❌ Requires multiple runs (manual repetition or orchestration) to cover all chunks.
+* ✅ Avoids memory/time issues that a single huge load might cause.
+* ✅ Backend-agnostic – works even if the source has no natural time or ID field for incremental loading.
+* ❌ Requires multiple runs (manual repetition or orchestration) to cover all chunks.
 
 > *Tip:* You can monitor progress by checking how many rows have loaded after each chunk, and stop once it matches the legacy table’s row count. Some pipelines use a loop with a condition or the `dlt` **dataset accessor** to verify when to stop.
 
