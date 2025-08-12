@@ -4,6 +4,7 @@
 
 # Loading historical data when migrating to `dlt`
 
+
 When creating a new pipeline for a source that has been running for a while or when migrating an existing pipeline to `dlt`, a crucial step is to **bring over years of historical data** into your new setup. We recommend two primary strategies for this:
 
 * **Stitching** – keep historical data in place and present it alongside new data via a virtual union (e.g. a SQL view).
