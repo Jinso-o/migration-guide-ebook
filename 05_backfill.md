@@ -27,7 +27,7 @@ SELECT *, 'dlt' AS source_flag
 FROM dlt_schema.events;
 ```
 
-**🟢 When to use stitching**: This strategy is best when you want a fast, low-effort migration with zero data duplication. It assumes your legacy data is static (no longer changing) and lets you **gradually deprecate** the old system over time while new data flows into `dlt`.
+**When to use stitching**: This strategy is best when you want a fast, low-effort migration with zero data duplication. It assumes your legacy data is static (no longer changing) and lets you **gradually deprecate** the old system over time while new data flows into `dlt`.
 
 * *No immediate reload needed*: You can query all data through one view without moving old records.
 * *Legacy data is read-only*: Suitable if historical data won’t be updated further.
@@ -96,11 +96,11 @@ Because each slice is independent and the state is defined by the parameters (st
 
 In practice, if one day’s data takes \~1 hour to load, doing 1500 days serially would take \~1500 hours. But if you launch 500 parallel loaders, each handling a 3-day window, the total wall-clock time might drop to only \~3 hours. This illustrates the massive speed-up from slicing the backfill and running slices concurrently.
 
-✅ Ideal for very long history loads – you can break years of data into manageable chunks.
-✅ Highly parallelizable – slices can be processed concurrently, greatly reducing overall time.
-❌ Requires orchestration tooling – you need a way to kick off and coordinate parallel slice jobs (this could be a custom script or a workflow platform, as mentioned).
+* ✅ Ideal for very long history loads – you can break years of data into manageable chunks.
+* ✅ Highly parallelizable – slices can be processed concurrently, greatly reducing overall time.
+* ❌ Requires orchestration tooling – you need a way to kick off and coordinate parallel slice jobs (this could be a custom script or a workflow platform, as mentioned).
 
-### ⚡ Pro Tip: Combine Stitching *and* Backfill
+### Pro Tip: Combine Stitching *and* Backfill
 
 These strategies aren’t mutually exclusive – you can use stitching as a quick stop-gap while a backfill runs in the background:
 
